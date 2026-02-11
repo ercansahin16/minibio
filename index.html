@@ -589,212 +589,303 @@
 
         /* RESPONSIVE TASARIM GELİŞTİRMELERİ */
         
-        /* Tablet ve küçük ekranlar */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-                background-attachment: scroll; /* Mobilde performans için */
-            }
-            
-            .container {
-                gap: 20px;
-            }
-            
-            .link-page {
-                padding: 30px 20px;
-                border-radius: 24px;
-            }
-            
-            .profile-section {
-                min-height: 300px;
-                padding: 30px 15px;
-            }
-            
-            .profile-img-container {
-                width: 130px;
-                height: 130px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-                padding: 8px 16px;
-            }
-            
-            .bio {
-                font-size: 1rem;
-                padding: 10px 16px;
-            }
-            
-            .link-item {
-                padding: 2px 2px;
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-            
-            .link-item::before {
-                width: 100%;
-                height: 2px;
-                top: 0;
-                left: 0;
-            }
-            
-            .link-icon {
-                margin-right: 0;
-                margin-bottom: 12px;
-                width: auto;
-            }
-            
-            .link-title {
-                font-size: 1.1rem;
-                text-align: center;
-            }
-            
-            .link-url {
-                font-size: 0.85rem;
-                text-align: center;
-            }
-            
-            .admin-panel {
-                padding: 25px 20px;
-            }
-            
-            .form-control {
-                padding: 12px 15px;
-            }
-            
-            .btn {
-                padding: 12px 20px;
-                width: 100%;
-                margin-bottom: 10px;
-                margin-left: 0 !important;
-            }
-            
-            .password-box {
-                padding: 30px 20px;
-                margin: 0 15px;
-            }
-            
-            .emoji-option {
-                font-size: 1.5rem;
-                padding: 10px;
-                width: 45px;
-                height: 45px;
-            }
-            
-            /* Mobilde link kartları düzeni */
-            .link-card {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 15px;
-            }
-            
-            .link-info {
-                width: 100%;
-                margin-bottom: 15px;
-                justify-content: flex-start;
-            }
-            
-            .link-order, .drag-handle {
-                margin-right: 10px;
-            }
-            
-            .action-btn {
-                width: 100%;
-                margin-bottom: 8px;
-                margin-right: 0;
-                justify-content: center;
-                display: flex;
-                align-items: center;
-            }
-            
-            .pin-btn {
-                order: -1;
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            
-            /* Buton grubu düzeni */
-            .link-card > div:last-child {
-                display: flex;
-                flex-direction: column;
-                width: 100%;
-            }
-        }
-        
-        /* Küçük telefonlar */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
-            .link-page {
-                padding: 25px 15px;
-            }
-            
-            .profile-section {
-                min-height: 250px;
-                padding: 25px 10px;
-            }
-            
-            .profile-img-container {
-                width: 110px;
-                height: 110px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-                padding: 6px 12px;
-            }
-            
-            .bio {
-                font-size: 0.95rem;
-                padding: 8px 12px;
-            }
-            
-            .link-item {
-                padding: 2px 2px;
-            }
-            
-            .admin-panel h2 {
-                font-size: 1.1rem;
-            }
-            
-            .form-group label {
-                font-size: 0.9rem;
-            }
-            
-            /* Daha küçük ekranlar için link kartı ayarları */
-            .link-info {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .drag-handle {
-                align-self: flex-start;
-            }
-        }
-        
-        /* Yatay mod için */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .profile-section {
-                min-height: 200px;
-                margin-bottom: 25px;
-                padding: 20px 10px;
-            }
-            
-            .profile-img-container {
-                width: 100px;
-                height: 100px;
-                margin-bottom: 15px;
-            }
-            
-            .links-container {
-                gap: 12px;
-                margin-bottom: 25px;
-            }
-        }
+      /* ========== TABLET & MOBİL – KOMPAKT TASARIM ========== */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+        background-attachment: scroll;
+    }
+
+    .container {
+        gap: 20px;
+    }
+
+    .link-page {
+        padding: 25px 20px;
+        border-radius: 24px;
+    }
+
+    .profile-section {
+        min-height: 280px;
+        padding: 25px 15px;
+    }
+
+    .profile-img-container {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        padding: 6px 14px;
+    }
+
+    .bio {
+        font-size: 0.95rem;
+        padding: 8px 16px;
+        margin-bottom: 20px;
+    }
+
+    /* 🔗 LİNKLER – DAHA KÜÇÜK */
+    .links-container {
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .link-item {
+        padding: 14px 18px;
+        border-radius: 16px;
+    }
+
+    .link-icon {
+        font-size: 1.5rem;
+        margin-right: 12px;
+        width: 40px;
+    }
+
+    .link-title {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .link-url {
+        font-size: 0.8rem;
+    }
+
+    /* 🛠️ YÖNETİM PANELİ */
+    .admin-panel {
+        padding: 20px;
+    }
+
+    .form-control {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        width: 100%;
+        margin-bottom: 10px;
+        margin-left: 0 !important;
+    }
+
+    .emoji-option {
+        font-size: 1.4rem;
+        padding: 8px;
+        width: 44px;
+        height: 44px;
+    }
+
+    /* 📋 LİNK KARTLARI – YÖNETİM PANELİ */
+    .link-card {
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .link-info {
+        gap: 12px;
+    }
+
+    .drag-handle {
+        margin-right: 10px;
+        font-size: 1.1rem;
+        padding: 6px;
+    }
+
+    .link-order {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+    }
+
+    .link-card [style*="font-size: 1.8rem"] {
+        font-size: 1.5rem !important;
+        margin-right: 10px !important;
+    }
+
+    .link-card [style*="font-weight: 600"] {
+        font-size: 0.95rem !important;
+    }
+
+    .link-card [style*="font-size: 0.9rem"] {
+        font-size: 0.8rem !important;
+    }
+
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .pin-btn,
+    .edit-btn,
+    .delete-btn {
+        margin-right: 6px;
+    }
+
+    .link-card > div:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .link-card > div:last-child button {
+        flex: 1 1 auto;
+        min-width: 80px;
+        justify-content: center;
+    }
+}
+
+/* ========== KÜÇÜK TELEFON (480px altı) ========== */
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
+    .link-page {
+        padding: 20px 15px;
+    }
+
+    .profile-section {
+        min-height: 220px;
+        padding: 20px 10px;
+    }
+
+    .profile-img-container {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        padding: 4px 12px;
+    }
+
+    .bio {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        margin-bottom: 18px;
+    }
+
+    .links-container {
+        gap: 8px;
+    }
+
+    .link-item {
+        padding: 12px 14px;
+        border-radius: 14px;
+    }
+
+    .link-icon {
+        font-size: 1.3rem;
+        margin-right: 10px;
+        width: 35px;
+    }
+
+    .link-title {
+        font-size: 0.9rem;
+    }
+
+    .link-url {
+        font-size: 0.7rem;
+    }
+
+    .admin-panel h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-control {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+
+    .emoji-option {
+        font-size: 1.2rem;
+        padding: 6px;
+        width: 38px;
+        height: 38px;
+    }
+
+    /* 📋 LİNK KARTLARI – 480PX */
+    .link-card {
+        padding: 12px;
+    }
+
+    .link-info {
+        gap: 10px;
+    }
+
+    .drag-handle {
+        margin-right: 8px;
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+    .link-order {
+        width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+    }
+
+    .link-card [style*="font-size: 1.8rem"] {
+        font-size: 1.3rem !important;
+        margin-right: 8px !important;
+    }
+
+    .link-card [style*="font-weight: 600"] {
+        font-size: 0.85rem !important;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .link-card > div:last-child button {
+        min-width: 70px;
+    }
+}
+
+/* ========== YATAY MOD (LANDSCAPE) ========== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .profile-section {
+        min-height: 180px;
+        margin-bottom: 20px;
+        padding: 15px 10px;
+    }
+
+    .profile-img-container {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .bio {
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+    }
+
+    .links-container {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -1747,6 +1838,7 @@
     </script>
 </body>
 </html>
+
 
 
 
