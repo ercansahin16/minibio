@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Bio'm</title>
-    <!-- Firebase Scripts -->
-    <script type="module" src="firebase-core.js"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +36,7 @@
             position: relative;
             overflow-x: hidden;
             
-            /* Varsayılan arka plan */
+            /* Varsayılan arka plan - JS ile değiştirilebilir */
             background: 
                 radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),
@@ -59,7 +57,7 @@
             height: 100%;
             backdrop-filter: blur(6px) saturate(150%);
             -webkit-backdrop-filter: blur(6px) saturate(150%);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.15); /* %15 beyaz şeffaflık */
             z-index: -1;
             pointer-events: none;
         }
@@ -101,6 +99,7 @@
             justify-content: center;
         }
         
+        /* Profil bölümü arka plan overlay (resim üzerinde hafif karanlık katman) */
         .profile-section::before {
             content: '';
             position: absolute;
@@ -108,7 +107,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.2); /* Resim üzerinde hafif koyu katman */
             z-index: 1;
         }
         
@@ -150,11 +149,11 @@
             border-radius: 12px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.7); /* Hafif flu beyaz arka plan */
         }
         
         .bio {
-            color: white;
+            color: white; /* Arka plan resmine uyum için beyaz */
             max-width: 500px;
             margin: 0 auto 35px;
             font-size: 1.15rem;
@@ -166,8 +165,8 @@
             border-radius: 12px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.7);
-            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.7); /* Hafif flu beyaz arka plan */
+            color: var(--text-primary); /* Koyu renk yazı */
         }
         
         /* LİNKLER */
@@ -415,7 +414,7 @@
             transform: translateY(-3px);
         }
 
-        /* Mevcut linkler listesi */
+        /* Mevcut linkler listesi için - DRAG & DROP EKLENDİ */
         .links-list {
             min-height: 100px;
             overflow: visible;
@@ -430,10 +429,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: move;
+            cursor: move; /* Sürükleme işareti */
             transition: all 0.3s;
             position: relative;
-            user-select: none;
+            user-select: none; /* Metin seçimini engelle */
             flex-wrap: wrap;
             gap: 15px;
         }
@@ -588,10 +587,13 @@
             color: #ffc107;
         }
 
-        /* Responsive Tasarım */
+        /* RESPONSIVE TASARIM GELİŞTİRMELERİ */
+        
+        /* Tablet ve küçük ekranlar */
         @media (max-width: 768px) {
             body {
                 padding: 15px;
+                background-attachment: scroll; /* Mobilde performans için */
             }
             
             .container {
@@ -625,11 +627,32 @@
             
             .link-item {
                 padding: 18px 20px;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            
+            .link-item::before {
+                width: 100%;
+                height: 4px;
+                top: 0;
+                left: 0;
             }
             
             .link-icon {
                 margin-right: 0;
                 margin-bottom: 12px;
+                width: auto;
+            }
+            
+            .link-title {
+                font-size: 1.1rem;
+                text-align: center;
+            }
+            
+            .link-url {
+                font-size: 0.85rem;
+                text-align: center;
             }
             
             .admin-panel {
@@ -644,14 +667,62 @@
                 padding: 12px 20px;
                 width: 100%;
                 margin-bottom: 10px;
+                margin-left: 0 !important;
             }
             
             .password-box {
                 padding: 30px 20px;
                 margin: 0 15px;
             }
+            
+            .emoji-option {
+                font-size: 1.5rem;
+                padding: 10px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            /* Mobilde link kartları düzeni */
+            .link-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px;
+            }
+            
+            .link-info {
+                width: 100%;
+                margin-bottom: 15px;
+                justify-content: flex-start;
+            }
+            
+            .link-order, .drag-handle {
+                margin-right: 10px;
+            }
+            
+            .action-btn {
+                width: 100%;
+                margin-bottom: 8px;
+                margin-right: 0;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+            }
+            
+            .pin-btn {
+                order: -1;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            /* Buton grubu düzeni */
+            .link-card > div:last-child {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
         }
         
+        /* Küçük telefonlar */
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -680,6 +751,49 @@
                 font-size: 0.95rem;
                 padding: 8px 12px;
             }
+            
+            .link-item {
+                padding: 16px 15px;
+            }
+            
+            .admin-panel h2 {
+                font-size: 1.4rem;
+            }
+            
+            .form-group label {
+                font-size: 0.9rem;
+            }
+            
+            /* Daha küçük ekranlar için link kartı ayarları */
+            .link-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .drag-handle {
+                align-self: flex-start;
+            }
+        }
+        
+        /* Yatay mod için */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .profile-section {
+                min-height: 200px;
+                margin-bottom: 25px;
+                padding: 20px 10px;
+            }
+            
+            .profile-img-container {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 15px;
+            }
+            
+            .links-container {
+                gap: 12px;
+                margin-bottom: 25px;
+            }
         }
     </style>
 </head>
@@ -687,16 +801,22 @@
     <div class="container">
         <!-- LİNK SAYFASI -->
         <div class="link-page" id="linkPage">
-            <div class="profile-section" id="profileSection">
+            <div class="profile-section" id="profileSection" style="background-image: url('https://images.unsplash.com/photo-1707343848552-893e05dba6ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
                 <div class="profile-img-container" id="profileImageContainer" title="Yönetim paneline giriş için 3 kez tıklayın">
-                    <img src="https://images.unsplash.com/photo-1605511004036-2237612ab7c0?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profil Resmi" class="profile-img" id="profileImage">
+                    <img src="https://images.unsplash.com/photo-1605511004036-2237612ab7c0?q=80&amp;w=688&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profil Resmi" class="profile-img" id="profileImage">
                 </div>
                 <h1 id="profileName">esahin</h1>
                 <p class="bio" id="profileBio">Mini Bio'ma hoşgeldiniz...</p>
             </div>
             
             <div class="links-container" id="linksContainer">
-                <!-- Linkler Firebase'den yüklenecek -->
+                <!-- Linkler buraya eklenecek -->
+                <div class="link-item" style="justify-content: center; background: rgba(124, 58, 237, 0.05);">
+                    <p style="color: var(--text-secondary); text-align: center; padding: 15px;">
+                        <i class="fas fa-plus-circle" style="margin-right: 10px; color: var(--accent);"></i>
+                        Yönetim panelinden ilk linkinizi ekleyin
+                    </p>
+                </div>
             </div>
             
             <div class="footer" style="color: var(--text-secondary); font-size: 0.9rem; opacity: 0.8;">
@@ -718,7 +838,7 @@
             </div>
         </div>
         
-        <!-- YÖNETİM PANELİ -->
+        <!-- YÖNETİM PANELİ (GİZLİ) -->
         <div class="admin-panel" id="adminPanel">
             <h2><i class="fas fa-cog"></i> Link Yönetim Paneli</h2>
             
@@ -734,17 +854,27 @@
             
             <div class="form-group">
                 <label for="profileImageInput"><i class="fas fa-image"></i> Profil Resmi URL</label>
-                <input type="text" id="profileImageInput" class="form-control" placeholder="https://example.com/resmim.jpg" value="https://images.unsplash.com/photo-1605511004036-2237612ab7c0?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <input type="text" id="profileImageInput" class="form-control" placeholder="https://example.com/resmim.jpg" value="https://images.unsplash.com/photo-1605511004036-2237612ab7c0?q=80&amp;w=688&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <small style="color: var(--text-secondary); display: block; margin-top: 8px;">
+                    İnternetteki bir resmin linkini yapıştırın
+                </small>
             </div>
             
+            <!-- GÜNCELLENDİ: PROFİL BÖLÜMÜ ARKA PLAN URL ALANI -->
             <div class="form-group">
                 <label for="profileBackgroundInput"><i class="fas fa-paint-brush"></i> Profil Bölümü Arka Plan URL</label>
-                <input type="text" id="profileBackgroundInput" class="form-control" placeholder="https://example.com/arkaplan.jpg">
+                <input type="text" id="profileBackgroundInput" class="form-control" placeholder="https://example.com/arkaplan.jpg" value="https://images.unsplash.com/photo-1707343848552-893e05dba6ac?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <small style="color: var(--text-secondary); display: block; margin-top: 8px;">
+                    Profil bölümü için bir arka plan resmi linki yapıştırın (flu olmayacak)
+                </small>
             </div>
             
             <div class="form-group">
                 <label for="backgroundInput"><i class="fas fa-image"></i> Sayfa Arka Plan URL</label>
                 <input type="text" id="backgroundInput" class="form-control" placeholder="https://example.com/arkaplan.jpg">
+                <small style="color: var(--text-secondary); display: block; margin-top: 8px;">
+                    Tüm sayfa için bir arka plan resmi linki yapıştırın (boş bırakırsanız varsayılan arka plan kullanılır)
+                </small>
             </div>
             
             <hr style="margin: 30px 0; border: none; border-top: 1px solid var(--border); opacity: 0.5;">
@@ -765,7 +895,9 @@
             
             <div class="form-group">
                 <label><i class="fas fa-icons"></i> İkon/Emoji Seçin</label>
-                <div class="emoji-selector" id="emojiSelector"></div>
+                <div class="emoji-selector" id="emojiSelector">
+                    <!-- Emojiler JavaScript ile eklenecek -->
+                </div>
             </div>
             
             <div class="form-group">
@@ -783,13 +915,19 @@
             <div id="existingLinksSection" style="margin-top: 40px;">
                 <div class="sort-info">
                     <i class="fas fa-arrows-alt"></i>
-                    <span>Linkleri sıralamak için sürükleyip bırakabilirsiniz.</span>
+                    <span>Linkleri sıralamak için sürükleyip bırakabilirsiniz. Sabitli linkler her zaman üstte görünür.</span>
                 </div>
                 
                 <h3 style="margin-bottom: 20px; color: var(--text-primary);">
                     <i class="fas fa-list"></i> Mevcut Linklerim
                 </h3>
-                <div class="links-list" id="linksList"></div>
+                <div class="links-list" id="linksList">
+                    <!-- Link listesi buraya eklenecek -->
+                    <div style="text-align: center; padding: 30px; color: var(--text-secondary); background: rgba(249, 250, 251, 0.7); border-radius: 14px; border: 2px dashed var(--border);">
+                        <i class="fas fa-link" style="font-size: 2rem; margin-bottom: 15px; display: block; opacity: 0.5;"></i>
+                        <p>Henüz link eklenmemiş</p>
+                    </div>
+                </div>
                 
                 <div style="margin-top: 20px; text-align: center;">
                     <button class="btn reset-order-btn" id="resetOrderBtn">
@@ -815,9 +953,9 @@
             deleteDoc,
             addDoc,
             query,
-            where,
             orderBy,
-            onSnapshot
+            onSnapshot,
+            getDocs
         } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         // KULLANICI VERİLERİ
@@ -881,19 +1019,21 @@
                     // Linkleri yükle
                     const linksSnapshot = await getDocs(collection(db, "links"));
                     userLinks = [];
-                    linksSnapshot.forEach((doc) => {
-                        const linkData = doc.data();
+                    linksSnapshot.forEach((linkDoc) => {
+                        const linkData = linkDoc.data();
                         userLinks.push({
-                            id: doc.id,
+                            id: linkDoc.id,
                             ...linkData
                         });
                     });
                     
-                    // Linkleri pinned durumuna göre sırala
+                    // Linkleri order'a göre sırala
                     userLinks.sort((a, b) => {
+                        // Pinned olanları önce göster
                         if (a.pinned && !b.pinned) return -1;
                         if (!a.pinned && b.pinned) return 1;
-                        return 0;
+                        // Sonra order'a göre sırala
+                        return (a.order || 0) - (b.order || 0);
                     });
                     
                     renderLinks();
@@ -922,14 +1062,38 @@
                     });
                 });
                 
-                // Linkleri pinned durumuna göre sırala
+                // Linkleri sırala
                 userLinks.sort((a, b) => {
+                    // Pinned olanları önce göster
                     if (a.pinned && !b.pinned) return -1;
                     if (!a.pinned && b.pinned) return 1;
-                    return a.order - b.order;
+                    // Sonra order'a göre sırala
+                    return (a.order || 0) - (b.order || 0);
                 });
                 
                 renderLinks();
+            });
+            
+            // Profil için gerçek zamanlı güncelleme
+            const profileRef = doc(db, "profiles", "main");
+            onSnapshot(profileRef, (doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    document.getElementById('profileName').textContent = data.name || 'esahin';
+                    document.getElementById('profileBio').textContent = data.bio || 'Mini Bio\'ma hoşgeldiniz...';
+                    
+                    if (data.image) {
+                        document.getElementById('profileImage').src = data.image;
+                    }
+                    
+                    if (data.profileBackground) {
+                        document.getElementById('profileSection').style.backgroundImage = `url('${data.profileBackground}')`;
+                    }
+                    
+                    if (data.background) {
+                        applyBackground(data.background);
+                    }
+                }
             });
         }
         
@@ -949,24 +1113,31 @@
                 
                 // Varsayılan linkler
                 const defaultLinks = [
-                    { title: "Instagram", url: "https://instagram.com", emoji: "📸", pinned: true, order: 0 },
-                    { title: "YouTube", url: "https://youtube.com", emoji: "🎥", pinned: true, order: 1 },
-                    { title: "GitHub", url: "https://github.com", emoji: "💻", pinned: false, order: 2 }
+                    { title: "Instagram", url: "https://instagram.com", emoji: "📸", pinned: true, order: 0, createdAt: new Date() },
+                    { title: "YouTube", url: "https://youtube.com", emoji: "🎥", pinned: true, order: 1, createdAt: new Date() },
+                    { title: "GitHub", url: "https://github.com", emoji: "💻", pinned: false, order: 2, createdAt: new Date() }
                 ];
                 
                 for (const link of defaultLinks) {
-                    await addDoc(collection(db, "links"), {
-                        ...link,
-                        createdAt: new Date()
-                    });
+                    await addDoc(collection(db, "links"), link);
                 }
                 
                 // Yerel verileri güncelle
-                userLinks = defaultLinks.map((link, index) => ({ ...link, id: `temp-${index}` }));
+                const linksSnapshot = await getDocs(collection(db, "links"));
+                userLinks = [];
+                linksSnapshot.forEach((doc) => {
+                    const linkData = doc.data();
+                    userLinks.push({
+                        id: doc.id,
+                        ...linkData
+                    });
+                });
+                
                 renderLinks();
                 
             } catch (error) {
                 console.error("Varsayılan veri oluşturulurken hata:", error);
+                showMessage("Varsayılan veriler oluşturulurken bir hata oluştu!", 'error');
             }
         }
         
@@ -1061,12 +1232,36 @@
         // SAYFA ARKA PLANINI UYGULA
         function applyBackground(url) {
             if (url && url.trim() !== '') {
-                document.body.style.backgroundImage = `url('${url}')`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.body.style.backgroundRepeat = 'no-repeat';
+                const img = new Image();
+                
+                img.onload = function() {
+                    document.body.style.backgroundImage = `url('${url}')`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                    document.body.style.backgroundRepeat = 'no-repeat';
+                    console.log('Arka plan başarıyla yüklendi:', url);
+                };
+                
+                img.onerror = function() {
+                    console.error('Arka plan yüklenemedi:', url);
+                    resetToDefaultBackground();
+                };
+                
+                img.src = url;
+            } else {
+                resetToDefaultBackground();
             }
+        }
+        
+        // Varsayılan arka plana dön
+        function resetToDefaultBackground() {
+            document.body.style.backgroundImage = '';
+            document.body.style.background = 
+                'radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 20%),' +
+                'radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),' +
+                'radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 30%),' +
+                'linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #f0fdf4 100%)';
         }
         
         // EMOJİ SEÇİCİYİ HAZIRLA
@@ -1199,13 +1394,13 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px;">
-                    <button class="action-btn pin-btn ${pinClass}" onclick="togglePin('${link.id}')" title="${pinTitle}">
+                    <button class="action-btn pin-btn ${pinClass}" onclick="window.togglePin('${link.id}')" title="${pinTitle}">
                         <i class="${pinIcon}"></i> ${link.pinned ? 'Sabitli' : 'Sabitle'}
                     </button>
-                    <button class="action-btn edit-btn" onclick="editLink('${link.id}')">
+                    <button class="action-btn edit-btn" onclick="window.editLink('${link.id}')">
                         <i class="fas fa-edit"></i> Düzenle
                     </button>
-                    <button class="action-btn delete-btn" onclick="deleteLink('${link.id}')">
+                    <button class="action-btn delete-btn" onclick="window.deleteLink('${link.id}')">
                         <i class="fas fa-trash"></i> Sil
                     </button>
                 </div>
@@ -1289,7 +1484,7 @@
             });
         }
         
-        // FIREBASE FONKSİYONLARI
+        // FİREBASE FONKSİYONLARI
         async function updateProfile() {
             try {
                 const profileRef = doc(db, "profiles", "main");
@@ -1303,22 +1498,6 @@
                 };
                 
                 await setDoc(profileRef, profileData, { merge: true });
-                
-                // Arayüzü güncelle
-                document.getElementById('profileName').textContent = profileData.name;
-                document.getElementById('profileBio').textContent = profileData.bio;
-                
-                if (profileData.image) {
-                    document.getElementById('profileImage').src = profileData.image;
-                }
-                
-                if (profileData.profileBackground) {
-                    document.getElementById('profileSection').style.backgroundImage = `url('${profileData.profileBackground}')`;
-                }
-                
-                if (profileData.background) {
-                    applyBackground(profileData.background);
-                }
                 
                 showMessage('Profil başarıyla güncellendi!');
             } catch (error) {
@@ -1447,7 +1626,7 @@
         async function resetLinkOrder() {
             if (confirm('Link sıralamasını varsayılan duruma sıfırlamak istediğinize emin misiniz?')) {
                 try {
-                    // ID'ye göre sırala (eklenme tarihi)
+                    // Tarihe göre sırala
                     const sortedLinks = [...userLinks].sort((a, b) => {
                         return new Date(a.createdAt) - new Date(b.createdAt);
                     });
