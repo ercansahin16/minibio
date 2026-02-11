@@ -11,918 +11,768 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: rgba(249, 250, 251, 0.8);
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --accent: #7c3aed;
-            --border: rgba(229, 231, 235, 0.6);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            
-            /* Varsayılan arka plan - JS ile değiştirilebilir */
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 30%),
-                linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #f0fdf4 100%);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        
-        /* FLU FİLTRE */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(6px) saturate(150%);
-            -webkit-backdrop-filter: blur(6px) saturate(150%);
-            background: rgba(255, 255, 255, 0.15); /* %15 beyaz şeffaflık */
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        /* LİNK SAYFASI */
-        .link-page {
-            background: var(--card-bg);
-            border-radius: 28px;
-            padding: 45px 35px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            text-align: center;
-        }
-        
-        /* PROFİL BÖLÜMÜ */
-        .profile-section {
-            margin-bottom: 45px;
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            padding: 40px 20px;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Profil bölümü arka plan overlay (resim üzerinde hafif karanlık katman) */
-        .profile-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2); /* Resim üzerinde hafif koyu katman */
-            z-index: 1;
-        }
-        
-        .profile-img-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 25px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            z-index: 2;
-        }
-        
-        .profile-img-container:hover {
-            transform: scale(1.05);
-        }
-        
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-        }
-        
-        h1 {
-            font-size: 2.4rem;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, var(--accent), #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.7); /* Hafif flu beyaz arka plan */
-        }
-        
-        .bio {
-            color: white; /* Arka plan resmine uyum için beyaz */
-            max-width: 500px;
-            margin: 0 auto 35px;
-            font-size: 1.15rem;
-            line-height: 1.7;
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.7); /* Hafif flu beyaz arka plan */
-            color: var(--text-primary); /* Koyu renk yazı */
-        }
-        
-        /* LİNKLER */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-bottom: 40px;
-        }
-        
-        .link-item {
-            display: flex;
-            align-items: center;
-            padding: 22px 30px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid var(--border);
-            border-radius: 18px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.4s;
-            text-align: left;
-            position: relative;
-        }
-        
-        .link-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--accent), #8b5cf6);
-        }
-        
-        .link-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: rgba(124, 58, 237, 0.3);
-        }
-        
-        .link-icon {
-            font-size: 1.8rem;
-            margin-right: 20px;
-            width: 50px;
-            text-align: center;
-        }
-        
-        .link-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 6px;
-        }
-        
-        .link-url {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            word-break: break-all;
-        }
-        
-        /* ŞİFRE MODALI */
-        .password-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-        
-        .password-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .password-box {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 40px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            transform: translateY(20px);
-            transition: transform 0.4s;
-        }
-        
-        .password-modal.active .password-box {
-            transform: translateY(0);
-        }
-        
-        .password-box h3 {
-            margin-bottom: 20px;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-        
-        .password-box input {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            background: rgba(255, 255, 255, 0.8);
-        }
-        
-        .password-box input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        
-        .password-box button {
-            padding: 14px 30px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .password-box button:hover {
-            background: #6d28d9;
-            transform: translateY(-2px);
-        }
-        
-        .error-message {
-            color: #ef4444;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        
-        /* YÖNETİM PANELİ */
-        .admin-panel {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-            display: none;
-        }
-        
-        .admin-panel.active {
-            display: block;
-        }
-        
-        .admin-panel h2 {
-            margin-bottom: 25px;
-            color: var(--accent);
-            font-size: 1.6rem;
-        }
-        
-        .form-group {
-            margin-bottom: 22px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.7);
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
-        
-        .emoji-selector {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-            padding: 15px;
-            background: rgba(249, 250, 251, 0.7);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-        }
-        
-        .emoji-option {
-            font-size: 1.8rem;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 12px;
-            background: white;
-            transition: all 0.3s;
-        }
-        
-        .emoji-option:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .emoji-option.selected {
-            background: var(--accent);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        /* BUTONLAR */
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #6d28d9;
-            transform: translateY(-3px);
-        }
+    /* ===== LIGHT TEMA (Varsayılan) ===== */
+    :root {
+        --bg-color: rgba(249, 250, 251, 0.8);
+        --card-bg: rgba(255, 255, 255, 0.85);
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --accent: #7c3aed;
+        --border: rgba(229, 231, 235, 0.6);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        --hover-bg: rgba(124, 58, 237, 0.08);
+        --overlay: rgba(0, 0, 0, 0.2);
+        --profile-text-bg: rgba(255, 255, 255, 0.7);
+        --link-bg: rgba(255, 255, 255, 0.9);
+        --card-white-bg: white;
+        --input-bg: rgba(255, 255, 255, 0.8);
+        --emoji-bg: white;
+        --emoji-selector-bg: rgba(249, 250, 251, 0.7);
+        --body-filter-bg: rgba(255, 255, 255, 0.15);
+        --border-light: rgba(229, 231, 235, 0.6);
+        --bg-gradient: 
+            radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 20%),
+            radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 30%),
+            linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #f0fdf4 100%);
+    }
 
-        /* Mevcut linkler listesi için - DRAG & DROP EKLENDİ */
-        .links-list {
-            min-height: 100px;
-            overflow: visible;
-        }
-        
-        .link-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: move; /* Sürükleme işareti */
-            transition: all 0.3s;
-            position: relative;
-            user-select: none; /* Metin seçimini engelle */
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .link-card:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-card.dragging {
-            opacity: 0.5;
-            transform: scale(0.95);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .link-card.drag-over {
-            border: 2px dashed var(--accent);
-            background-color: rgba(124, 58, 237, 0.05);
-            transform: scale(1.02);
-        }
-        
-        .drag-handle {
-            cursor: move;
-            color: var(--text-secondary);
-            margin-right: 15px;
-            font-size: 1.2rem;
-            padding: 8px;
-            border-radius: 8px;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        
-        .drag-handle:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-            color: var(--accent);
-        }
-        
-        .link-info {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            min-width: 0;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .action-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
+    /* ===== DARK TEMA ===== */
+    body.dark-theme {
+        --bg-color: rgba(15, 23, 42, 0.9);
+        --card-bg: rgba(30, 41, 59, 0.85);
+        --text-primary: #f3f4f6;
+        --text-secondary: #9ca3af;
+        --accent: #a78bfa;
+        --border: rgba(75, 85, 99, 0.6);
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        --hover-bg: rgba(167, 139, 250, 0.15);
+        --overlay: rgba(0, 0, 0, 0.4);
+        --profile-text-bg: rgba(30, 41, 59, 0.8);
+        --link-bg: rgba(30, 41, 59, 0.9);
+        --card-white-bg: #1e293b;
+        --input-bg: rgba(30, 41, 59, 0.9);
+        --emoji-bg: #1e293b;
+        --emoji-selector-bg: rgba(30, 41, 59, 0.7);
+        --body-filter-bg: rgba(0, 0, 0, 0.3);
+        --border-light: rgba(75, 85, 99, 0.6);
+        --bg-gradient: 
+            radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.8) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(30, 58, 138, 0.5) 0%, transparent 20%),
+            radial-gradient(circle at 50% 50%, rgba(55, 65, 81, 0.6) 0%, transparent 30%),
+            linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e293b 100%);
+    }
 
-        .edit-btn {
-            background: rgba(124, 58, 237, 0.1);
-            color: var(--accent);
-            margin-right: 10px;
-        }
-        
-        .edit-btn:hover {
-            background: rgba(124, 58, 237, 0.2);
-        }
+    /* ===== TEMEL STILLER (Değişkenler Kullanıldı) ===== */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .delete-btn {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-        }
-        
-        .delete-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-        }
-        
-        /* SABİTLEME BUTONU */
-        .pin-btn {
-            background: rgba(255, 193, 7, 0.1);
-            color: #ffc107;
-            margin-right: 10px;
-        }
-        
-        .pin-btn:hover {
-            background: rgba(255, 193, 7, 0.2);
-        }
-        
-        .pin-btn.pinned {
-            background: rgba(255, 193, 7, 0.3);
-            color: #ff9800;
-        }
-        
-        /* Sıralama sıfırlama butonu */
-        .reset-order-btn {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-            margin-left: 15px;
-        }
-        
-        .reset-order-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-        }
-        
-        /* Link sıra numarası */
-        .link-order {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            margin-right: 15px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        
-        /* Sıralama bilgi mesajı */
-        .sort-info {
-            display: flex;
-            align-items: center;
-            background: rgba(124, 58, 237, 0.05);
-            padding: 12px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .sort-info i {
-            color: var(--accent);
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-        
-        /* Sabitlenmiş linkler başlığı */
-        .pinned-section {
-            margin-bottom: 20px;
-        }
-        
-        .pinned-title {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .pinned-title i {
-            color: #ffc107;
-        }
-
-       /* RESPONSIVE TASARIM GELİŞTİRMELERİ */
-
-/* ========== TABLET & MOBİL – KOMPAKT TASARIM ========== */
-@media (max-width: 768px) {
     body {
-        padding: 12px;
-        background-attachment: scroll;
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+        background: var(--bg-gradient);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        transition: background 0.3s ease, color 0.2s ease;
+    }
+
+    /* FLU FİLTRE */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(6px) saturate(150%);
+        -webkit-backdrop-filter: blur(6px) saturate(150%);
+        background: var(--body-filter-bg);
+        z-index: -1;
+        pointer-events: none;
+        transition: background 0.3s ease;
     }
 
     .container {
-        gap: 20px;
-    }
-
-    .link-page {
-        padding: 25px 20px;
-        border-radius: 24px;
-    }
-
-    .profile-section {
-        min-height: 280px;
-        padding: 25px 15px;
-    }
-
-    .profile-img-container {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 15px;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-        padding: 6px 14px;
-    }
-
-    .bio {
-        font-size: 0.95rem;
-        padding: 8px 16px;
-        margin-bottom: 20px;
-    }
-
-    /* 🔗 LİNKLER – DAHA KÜÇÜK */
-    .links-container {
-        gap: 12px;
-        margin-bottom: 30px;
-    }
-
-    .link-item {
-        padding: 14px 18px;
-        border-radius: 16px;
-        transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1),
-                    box-shadow 0.3s ease,
-                    background 0.2s ease;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    .link-icon {
-        font-size: 1.5rem;
-        margin-right: 12px;
-        width: 40px;
-    }
-
-    .link-title {
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    .link-url {
-        font-size: 0.8rem;
-    }
-
-    /* 📱 MOBİL DOKUNMA EFEKTİ – PROFESYONEL */
-    .link-item:active {
-        transform: scale(0.97);
-        background: rgba(124, 58, 237, 0.08);
-        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
-        border-color: var(--accent);
-    }
-
-    .link-item:focus {
-        outline: none;
-        background: rgba(124, 58, 237, 0.05);
-        border-color: rgba(124, 58, 237, 0.5);
-    }
-
-    /* 🛠️ YÖNETİM PANELİ */
-    .admin-panel {
-        padding: 20px;
-    }
-
-    .form-control {
-        padding: 10px 14px;
-        font-size: 0.95rem;
-    }
-
-    .btn {
-        padding: 10px 18px;
-        font-size: 0.95rem;
-        width: 100%;
-        margin-bottom: 10px;
-        margin-left: 0 !important;
-    }
-
-    .emoji-option {
-        font-size: 1.4rem;
-        padding: 8px;
-        width: 44px;
-        height: 44px;
-    }
-
-    /* 📋 LİNK KARTLARI – YÖNETİM PANELİ */
-    .link-card {
-        padding: 14px;
-        margin-bottom: 12px;
-    }
-
-    .link-info {
-        gap: 12px;
-    }
-
-    .drag-handle {
-        margin-right: 10px;
-        font-size: 1.1rem;
-        padding: 6px;
-    }
-
-    .link-order {
-        width: 26px;
-        height: 26px;
-        font-size: 0.8rem;
-    }
-
-    .link-card [style*="font-size: 1.8rem"] {
-        font-size: 1.5rem !important;
-        margin-right: 10px !important;
-    }
-
-    .link-card [style*="font-weight: 600"] {
-        font-size: 0.95rem !important;
-    }
-
-    .link-card [style*="font-size: 0.9rem"] {
-        font-size: 0.8rem !important;
-    }
-
-    .action-btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .pin-btn,
-    .edit-btn,
-    .delete-btn {
-        margin-right: 6px;
-    }
-
-    .link-card > div:last-child {
+        max-width: 800px;
+        margin: 0 auto;
         display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        width: 100%;
+        flex-direction: column;
+        gap: 30px;
     }
 
-    .link-card > div:last-child button {
-        flex: 1 1 auto;
-        min-width: 80px;
+    /* LİNK SAYFASI */
+    .link-page {
+        background: var(--card-bg);
+        border-radius: 28px;
+        padding: 45px 35px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        text-align: center;
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* PROFİL BÖLÜMÜ */
+    .profile-section {
+        margin-bottom: 45px;
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        padding: 40px 20px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
     }
-}
 
-/* ========== KÜÇÜK TELEFON (480px altı) ========== */
-@media (max-width: 480px) {
-    body {
-        padding: 8px;
-    }
-
-    .link-page {
-        padding: 20px 15px;
-    }
-
-    .profile-section {
-        min-height: 220px;
-        padding: 20px 10px;
+    .profile-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--overlay);
+        z-index: 1;
+        transition: background 0.3s ease;
     }
 
     .profile-img-container {
-        width: 90px;
-        height: 90px;
-        margin-bottom: 12px;
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 25px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        z-index: 2;
+    }
+
+    .profile-img-container:hover {
+        transform: scale(1.05);
+    }
+
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--card-white-bg);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        transition: border-color 0.3s ease;
     }
 
     h1 {
-        font-size: 1.6rem;
-        padding: 4px 12px;
+        font-size: 2.4rem;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, var(--accent), #8b5cf6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 700;
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: var(--profile-text-bg);
+        transition: background-color 0.3s ease;
     }
 
     .bio {
-        font-size: 0.85rem;
-        padding: 6px 12px;
-        margin-bottom: 18px;
+        max-width: 500px;
+        margin: 0 auto 35px;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: var(--profile-text-bg);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* LİNKLER */
     .links-container {
-        gap: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 40px;
     }
 
     .link-item {
-        padding: 12px 14px;
-        border-radius: 14px;
-        transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1),
-                    box-shadow 0.3s ease,
-                    background 0.2s ease;
-        -webkit-tap-highlight-color: transparent;
+        display: flex;
+        align-items: center;
+        padding: 22px 30px;
+        background: var(--link-bg);
+        border: 2px solid var(--border);
+        border-radius: 18px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.4s;
+        text-align: left;
+        position: relative;
+    }
+
+    .link-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--accent), #8b5cf6);
+    }
+
+    .link-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        border-color: rgba(124, 58, 237, 0.3);
     }
 
     .link-icon {
-        font-size: 1.3rem;
-        margin-right: 10px;
-        width: 35px;
+        font-size: 1.8rem;
+        margin-right: 20px;
+        width: 50px;
+        text-align: center;
     }
 
     .link-title {
-        font-size: 0.9rem;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 6px;
     }
 
     .link-url {
-        font-size: 0.7rem;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        word-break: break-all;
     }
 
-    /* 📱 MOBİL DOKUNMA EFEKTİ – 480PX */
-    .link-item:active {
-        transform: scale(0.96);
-        background: rgba(124, 58, 237, 0.08);
-        box-shadow: 0 8px 18px rgba(124, 58, 237, 0.25);
+    /* ŞİFRE MODALI */
+    .password-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
+
+    .password-modal.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .password-box {
+        background: var(--card-bg);
+        border-radius: 24px;
+        padding: 40px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+        transform: translateY(20px);
+        transition: transform 0.4s, background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .password-modal.active .password-box {
+        transform: translateY(0);
+    }
+
+    .password-box h3 {
+        margin-bottom: 20px;
+        color: var(--accent);
+        font-size: 1.5rem;
+    }
+
+    .password-box input {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 1rem;
+        font-family: 'Inter', sans-serif;
+        background: var(--input-bg);
+        color: var(--text-primary);
+        transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .password-box input:focus {
+        outline: none;
         border-color: var(--accent);
     }
 
-    .link-item:focus {
-        outline: none;
-        background: rgba(124, 58, 237, 0.05);
-        border-color: rgba(124, 58, 237, 0.5);
+    .password-box button {
+        padding: 14px 30px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .password-box button:hover {
+        background: #6d28d9;
+        transform: translateY(-2px);
+    }
+
+    .error-message {
+        color: #ef4444;
+        margin-top: 10px;
+        font-size: 0.9rem;
+        display: none;
+    }
+
+    /* YÖNETİM PANELİ */
+    .admin-panel {
+        background: var(--card-bg);
+        border-radius: 24px;
+        padding: 30px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+        display: none;
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .admin-panel.active {
+        display: block;
     }
 
     .admin-panel h2 {
-        font-size: 1.3rem;
+        margin-bottom: 25px;
+        color: var(--accent);
+        font-size: 1.6rem;
+    }
+
+    .form-group {
+        margin-bottom: 22px;
     }
 
     .form-group label {
-        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
     }
 
     .form-control {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        font-size: 1rem;
+        font-family: 'Inter', sans-serif;
+        transition: all 0.3s;
+        background: var(--input-bg);
+        color: var(--text-primary);
     }
 
-    .btn {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    }
+
+    .emoji-selector {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+        padding: 15px;
+        background: var(--emoji-selector-bg);
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .emoji-option {
-        font-size: 1.2rem;
-        padding: 6px;
-        width: 38px;
-        height: 38px;
-    }
-
-    /* 📋 LİNK KARTLARI – 480PX */
-    .link-card {
+        font-size: 1.8rem;
+        cursor: pointer;
         padding: 12px;
+        border-radius: 12px;
+        background: var(--emoji-bg);
+        transition: all 0.3s;
+        color: var(--text-primary);
     }
 
-    .link-info {
-        gap: 10px;
+    .emoji-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .emoji-option.selected {
+        background: var(--accent);
+        color: white;
+        transform: scale(1.1);
+    }
+
+    /* BUTONLAR */
+    .btn {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #6d28d9;
+        transform: translateY(-3px);
+    }
+
+    /* Mevcut linkler listesi - DRAG & DROP */
+    .links-list {
+        min-height: 100px;
+        overflow: visible;
+    }
+
+    .link-card {
+        background: var(--card-white-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: move;
+        transition: all 0.3s;
+        position: relative;
+        user-select: none;
+        flex-wrap: wrap;
+        gap: 15px;
+        color: var(--text-primary);
+    }
+
+    .link-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .link-card.dragging {
+        opacity: 0.5;
+        transform: scale(0.95);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .link-card.drag-over {
+        border: 2px dashed var(--accent);
+        background-color: rgba(124, 58, 237, 0.05);
+        transform: scale(1.02);
     }
 
     .drag-handle {
-        margin-right: 8px;
-        font-size: 1rem;
-        padding: 4px;
+        cursor: move;
+        color: var(--text-secondary);
+        margin-right: 15px;
+        font-size: 1.2rem;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        flex-shrink: 0;
     }
 
-    .link-order {
-        width: 22px;
-        height: 22px;
-        font-size: 0.7rem;
+    .drag-handle:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: var(--accent);
     }
 
-    .link-card [style*="font-size: 1.8rem"] {
-        font-size: 1.3rem !important;
-        margin-right: 8px !important;
-    }
-
-    .link-card [style*="font-weight: 600"] {
-        font-size: 0.85rem !important;
+    .link-info {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        min-width: 0;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
     .action-btn {
-        padding: 5px 10px;
-        font-size: 0.75rem;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        white-space: nowrap;
     }
 
-    .link-card > div:last-child button {
-        min-width: 70px;
+    .edit-btn {
+        background: rgba(124, 58, 237, 0.1);
+        color: var(--accent);
+        margin-right: 10px;
     }
-}
 
-/* ========== YATAY MOD (LANDSCAPE) ========== */
-@media (max-height: 600px) and (orientation: landscape) {
-    .profile-section {
-        min-height: 180px;
+    .edit-btn:hover {
+        background: rgba(124, 58, 237, 0.2);
+    }
+
+    .delete-btn {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    .delete-btn:hover {
+        background: rgba(239, 68, 68, 0.2);
+    }
+
+    /* SABİTLEME BUTONU */
+    .pin-btn {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        margin-right: 10px;
+    }
+
+    .pin-btn:hover {
+        background: rgba(255, 193, 7, 0.2);
+    }
+
+    .pin-btn.pinned {
+        background: rgba(255, 193, 7, 0.3);
+        color: #ff9800;
+    }
+
+    /* Sıralama sıfırlama butonu */
+    .reset-order-btn {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+        margin-left: 15px;
+    }
+
+    .reset-order-btn:hover {
+        background: rgba(59, 130, 246, 0.2);
+    }
+
+    /* Link sıra numarası */
+    .link-order {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background: var(--accent);
+        color: white;
+        border-radius: 50%;
+        margin-right: 15px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    /* Sıralama bilgi mesajı */
+    .sort-info {
+        display: flex;
+        align-items: center;
+        background: rgba(124, 58, 237, 0.05);
+        padding: 12px 20px;
+        border-radius: 12px;
         margin-bottom: 20px;
-        padding: 15px 10px;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
     }
 
-    .profile-img-container {
-        width: 80px;
-        height: 80px;
+    .sort-info i {
+        color: var(--accent);
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    /* Sabitlenmiş linkler başlığı */
+    .pinned-title {
+        color: var(--accent);
+        font-size: 1.2rem;
         margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-    h1 {
-        font-size: 1.4rem;
+    .pinned-title i {
+        color: #ffc107;
     }
 
-    .bio {
-        font-size: 0.8rem;
-        margin-bottom: 15px;
+    /* ===== TEMA DEĞİŞTİRME BUTONU ===== */
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        color: var(--text-primary);
     }
 
-    .links-container {
-        gap: 8px;
-        margin-bottom: 20px;
+    .theme-toggle:hover {
+        transform: scale(1.1);
+        border-color: var(--accent);
     }
-}
-    </style>
+
+    .theme-toggle i {
+        font-size: 1.3rem;
+        color: var(--accent);
+    }
+
+    /* ===== RESPONSIVE – TEMA BUTONU MOBİL ===== */
+    @media (max-width: 768px) {
+        .theme-toggle {
+            top: 15px;
+            right: 15px;
+            width: 38px;
+            height: 38px;
+        }
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* ===== RESPONSIVE TASARIM (Senin mevcut kodların, sadece tema değişkenlerine uyumlu hale getirildi) ===== */
+    @media (max-width: 768px) {
+        body {
+            padding: 12px;
+            background-attachment: scroll;
+        }
+        .container { gap: 20px; }
+        .link-page { padding: 25px 20px; border-radius: 24px; }
+        .profile-section { min-height: 280px; padding: 25px 15px; }
+        .profile-img-container { width: 110px; height: 110px; margin-bottom: 15px; }
+        h1 { font-size: 1.8rem; padding: 6px 14px; }
+        .bio { font-size: 0.95rem; padding: 8px 16px; margin-bottom: 20px; }
+        .links-container { gap: 12px; margin-bottom: 30px; }
+        .link-item { padding: 14px 18px; border-radius: 16px; }
+        .link-icon { font-size: 1.5rem; margin-right: 12px; width: 40px; }
+        .link-title { font-size: 1rem; margin-bottom: 4px; }
+        .link-url { font-size: 0.8rem; }
+        .admin-panel { padding: 20px; }
+        .form-control { padding: 10px 14px; font-size: 0.95rem; }
+        .btn { padding: 10px 18px; font-size: 0.95rem; width: 100%; margin-bottom: 10px; margin-left: 0 !important; }
+        .emoji-option { font-size: 1.4rem; padding: 8px; width: 44px; height: 44px; }
+        .link-card { padding: 14px; margin-bottom: 12px; }
+        .link-info { gap: 12px; }
+        .drag-handle { margin-right: 10px; font-size: 1.1rem; padding: 6px; }
+        .link-order { width: 26px; height: 26px; font-size: 0.8rem; }
+        .link-card [style*="font-size: 1.8rem"] { font-size: 1.5rem !important; margin-right: 10px !important; }
+        .link-card [style*="font-weight: 600"] { font-size: 0.95rem !important; }
+        .link-card [style*="font-size: 0.9rem"] { font-size: 0.8rem !important; }
+        .action-btn { padding: 6px 12px; font-size: 0.8rem; }
+        .pin-btn, .edit-btn, .delete-btn { margin-right: 6px; }
+        .link-card > div:last-child { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
+        .link-card > div:last-child button { flex: 1 1 auto; min-width: 80px; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+        body { padding: 8px; }
+        .link-page { padding: 20px 15px; }
+        .profile-section { min-height: 220px; padding: 20px 10px; }
+        .profile-img-container { width: 90px; height: 90px; margin-bottom: 12px; }
+        h1 { font-size: 1.6rem; padding: 4px 12px; }
+        .bio { font-size: 0.85rem; padding: 6px 12px; margin-bottom: 18px; }
+        .links-container { gap: 8px; }
+        .link-item { padding: 12px 14px; border-radius: 14px; }
+        .link-icon { font-size: 1.3rem; margin-right: 10px; width: 35px; }
+        .link-title { font-size: 0.9rem; }
+        .link-url { font-size: 0.7rem; }
+        .admin-panel h2 { font-size: 1.3rem; }
+        .form-group label { font-size: 0.85rem; }
+        .form-control { padding: 8px 12px; font-size: 0.9rem; }
+        .btn { padding: 8px 16px; font-size: 0.9rem; }
+        .emoji-option { font-size: 1.2rem; padding: 6px; width: 38px; height: 38px; }
+        .link-card { padding: 12px; }
+        .link-info { gap: 10px; }
+        .drag-handle { margin-right: 8px; font-size: 1rem; padding: 4px; }
+        .link-order { width: 22px; height: 22px; font-size: 0.7rem; }
+        .link-card [style*="font-size: 1.8rem"] { font-size: 1.3rem !important; margin-right: 8px !important; }
+        .link-card [style*="font-weight: 600"] { font-size: 0.85rem !important; }
+        .action-btn { padding: 5px 10px; font-size: 0.75rem; }
+        .link-card > div:last-child button { min-width: 70px; }
+    }
+
+    @media (max-height: 600px) and (orientation: landscape) {
+        .profile-section { min-height: 180px; margin-bottom: 20px; padding: 15px 10px; }
+        .profile-img-container { width: 80px; height: 80px; margin-bottom: 10px; }
+        h1 { font-size: 1.4rem; }
+        .bio { font-size: 0.8rem; margin-bottom: 15px; }
+        .links-container { gap: 8px; margin-bottom: 20px; }
+    }
+
+    /* Mobil dokunma efektleri – aynen korundu */
+    @media (max-width: 768px) {
+        .link-item {
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1),
+                        box-shadow 0.3s ease,
+                        background 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .link-item:active {
+            transform: scale(0.97);
+            background: var(--hover-bg);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+            border-color: var(--accent);
+        }
+        .link-item:focus {
+            outline: none;
+            background: var(--hover-bg);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .link-item:active {
+            transform: scale(0.96);
+        }
+    }
+</style>
 </head>
 <body>
     <!-- DARK/LIGHT MOD TOGGLE -->
@@ -1916,6 +1766,7 @@ function initTheme() {
     </script>
 </body>
 </html>
+
 
 
 
