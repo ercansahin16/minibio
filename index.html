@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Sayfam | Gizli Yönetim Panelli</title>
+    <title>Mini Bio'm</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -942,6 +942,22 @@
     </div>
 
     <script>
+        // GitHub Pages için özel düzeltmeler
+        (function() {
+            // GitHub Pages'te çalıştığında, localStorage sorunlarını önle
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            
+            // Eğer GitHub Pages'teysek ve localStorage'da veri yoksa, örnek veri ekle
+            if (isGitHubPages) {
+                console.log('GitHub Pages ortamında çalışıyor');
+                
+                // Tarayıcı konsolunda hata ayıklama için
+                window.addEventListener('error', function(e) {
+                    console.error('Hata oluştu:', e.message, e.filename, e.lineno);
+                });
+            }
+        })();
+
         // KULLANICI VERİLERİ
         let userLinks = JSON.parse(localStorage.getItem('userLinks')) || [];
         let currentEmoji = '🔗';
@@ -965,6 +981,36 @@
                 }
                 return link;
             });
+            
+            // Eğer hiç link yoksa, örnek linkler ekle (sadece ilk kez)
+            if (userLinks.length === 0) {
+                const exampleLinks = [
+                    {
+                        id: Date.now(),
+                        title: 'Instagram',
+                        url: 'https://instagram.com',
+                        emoji: '📸',
+                        pinned: true
+                    },
+                    {
+                        id: Date.now() + 1,
+                        title: 'YouTube',
+                        url: 'https://youtube.com',
+                        emoji: '🎥',
+                        pinned: true
+                    },
+                    {
+                        id: Date.now() + 2,
+                        title: 'GitHub',
+                        url: 'https://github.com',
+                        emoji: '💻',
+                        pinned: false
+                    }
+                ];
+                
+                userLinks = exampleLinks;
+                localStorage.setItem('userLinks', JSON.stringify(userLinks));
+            }
             
             loadProfile();
             renderLinks();
@@ -1137,7 +1183,7 @@
             emojis.forEach(emoji => {
                 const emojiElement = document.createElement('div');
                 emojiElement.className = 'emoji-option';
-                emojiElement.textContent = emoji;
+                emojiElement.textContent = emji;
                 emojiElement.title = emoji;
                 emojiElement.addEventListener('click', () => {
                     document.querySelectorAll('.emoji-option').forEach(el => {
