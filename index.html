@@ -925,6 +925,10 @@
     </style>
 </head>
 <body>
+    <!-- DARK/LIGHT MOD TOGGLE -->
+<div class="theme-toggle">
+    <i class="fas fa-moon" id="themeIcon"></i>
+</div>
     <div class="container">
         <!-- LİNK SAYFASI -->
         <div class="link-page" id="linkPage">
@@ -1107,8 +1111,7 @@
             setupEventListeners();
             setupPasswordSystem();
             setupDragAndDrop();
-            
-            // Gerçek zamanlı güncelleme için dinleme başlat
+            initTheme();
             setupRealtimeUpdates();
         });
         
@@ -1865,6 +1868,45 @@
                 }
             }
         `;
+
+
+
+        // TEMA YÖNETİMİ
+function initTheme() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    // Kaydedilmiş temayı kontrol et
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        themeIcon.classList.add('fa-moon');
+        themeIcon.classList.remove('fa-sun');
+    }
+    
+    // Toggle olayı
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        
+        if (isDark) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
+
+
+
+        
         document.head.appendChild(style);
         
         // Global fonksiyonlar
@@ -1874,6 +1916,7 @@
     </script>
 </body>
 </html>
+
 
 
 
