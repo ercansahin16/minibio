@@ -787,7 +787,7 @@
                     <img src="" alt="Bekleyiniz..." class="profile-img" id="profileImage">
                 </div>
                 <h1 id="profileName">esahin</h1>
-                <p class="bio" id="profileBio">...Sevgiliye özel Mini Bio...</p>
+                <p class="bio" id="profileBio">...Sevgiliye özel ...</p>
             </div>
             
             <div class="links-container" id="linksContainer">
@@ -801,7 +801,7 @@
             </div>
             
             <div class="footer" style="color: var(--text-secondary); font-size: 0.9rem; opacity: 0.8;">
-                <p>© esahin Mini Bio</p>
+                <p>© esahin o</p>
             </div>
         </div>
         
@@ -830,7 +830,7 @@
             
             <div class="form-group">
                 <label for="profileBioInput"><i class="fas fa-edit"></i> Profil Açıklamanız</label>
-                <input type="text" id="profileBioInput" class="form-control" placeholder="Kendiniz hakkında kısa bir açıklama" value="Mini Bio'ma hoşgeldiniz...">
+                <input type="text" id="profileBioInput" class="form-control" placeholder="Kendiniz hakkında kısa bir açıklama" value="...Sevgiliye özel ...">
             </div>
             
             <div class="form-group">
@@ -976,7 +976,7 @@
                     
                     // Profil bilgilerini yükle
                     document.getElementById('profileName').textContent = data.name || 'esahin';
-                    document.getElementById('profileBio').textContent = data.bio || 'Mini Bio\'ma hoşgeldiniz...';
+                    document.getElementById('profileBio').textContent = data.bio || '...Sevgiliye özel ...';
                     
                     if (data.image) {
                         document.getElementById('profileImage').src = data.image;
@@ -994,7 +994,7 @@
                     }
                     
                     document.getElementById('profileNameInput').value = data.name || 'esahin';
-                    document.getElementById('profileBioInput').value = data.bio || 'Mini Bio\'ma hoşgeldiniz...';
+                    document.getElementById('profileBioInput').value = data.bio || '...Sevgiliye özel ...';
                     
                     // Linkleri yükle
                     const linksSnapshot = await getDocs(collection(db, "links"));
@@ -1060,7 +1060,7 @@
                 if (doc.exists()) {
                     const data = doc.data();
                     document.getElementById('profileName').textContent = data.name || 'esahin';
-                    document.getElementById('profileBio').textContent = data.bio || 'Mini Bio\'ma hoşgeldiniz...';
+                    document.getElementById('profileBio').textContent = data.bio || '...Sevgiliye özel ...';
                     
                     if (data.image) {
                         document.getElementById('profileImage').src = data.image;
@@ -1084,7 +1084,7 @@
                 const profileRef = doc(db, "profiles", "main");
                 await setDoc(profileRef, {
                     name: "esahin",
-                    bio: "Mini Bio'ma hoşgeldiniz...",
+                    bio: "...Sevgiliye özel ...",
                     image: "",
                     profileBackground: "",
                     background: "",
@@ -1470,7 +1470,7 @@
                 const profileRef = doc(db, "profiles", "main");
                 const profileData = {
                     name: document.getElementById('profileNameInput').value.trim() || 'esahin',
-                    bio: document.getElementById('profileBioInput').value.trim() || 'Mini Bio\'ma hoşgeldiniz...',
+                    bio: document.getElementById('profileBioInput').value.trim() || '...Sevgiliye özel ...',
                     image: document.getElementById('profileImageInput').value.trim(),
                     profileBackground: document.getElementById('profileBackgroundInput').value.trim(),
                     background: document.getElementById('backgroundInput').value.trim(),
@@ -1766,6 +1766,7 @@ function initTheme() {
     </script>
 </body>
 </html>
+
 
 
 
